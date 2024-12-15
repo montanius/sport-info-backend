@@ -10,7 +10,7 @@ router.post('/login', async (req, res) => {
     try{
 const korisnikPostoji = await user.findOne({email});
 if(!korisnikPostoji){
-return res.status(400).json({message: "Korisnik nije pronađen u bazi"});
+return res.status(401).json({message: "Korisnik nije pronađen u bazi"});
 }
     const ispravnaLozinka =  await bcrypt.compare(lozinka, korisnikPostoji.lozinka);
     if(!ispravnaLozinka){
@@ -25,7 +25,8 @@ return res.status(400).json("Lozinka je pogrešna.");
 
     return res.status(201).json({
         message:"Korisnik je pronađen u bazi.",
-        token:token
+        token:token,
+        korisnik : korisnikPostoji
     });
     }
     catch(error){
