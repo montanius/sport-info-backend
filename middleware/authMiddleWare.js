@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const TAJNI_KLJUC  = process.env.JWT_TAJNI_KLJUC;
+const user = require('../schema/UserSchema');
 
 const provjeriToken = (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];

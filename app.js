@@ -4,7 +4,7 @@ const connectDb = require('./config/db');
 const register = require('./routes/register');
 const login = require('./routes/login');
 const usersRoutes = require('./routes/users');
-const authmiddleware = require('./middleware/authMiddleWare');
+const provjeriToken = require('./middleware/authMiddleWare');
 
 const app = express();
 const cors = require('cors');
@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/api', register);
 app.use('/api', login);
-app.use('/api/users', authmiddleware, usersRoutes);
+app.use('/api/users', provjeriToken, usersRoutes);
 
 
 const port = process.env.PORT;

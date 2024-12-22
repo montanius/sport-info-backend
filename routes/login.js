@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const user = require('../modules/UserSchema');
+const user = require('../schema/UserSchema');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const TAJNI_KLJUC = process.env.JWT_TAJNI_KLJUC;
@@ -20,7 +20,7 @@ return res.status(400).json("Lozinka je pogrešna.");
     const token = jwt.sign({
         id: korisnikPostoji._id, email: korisnikPostoji.email},
         TAJNI_KLJUC,
-    {expiresIn : '1h'}
+    {expiresIn : '7d'}
     );
 
     return res.status(201).json({

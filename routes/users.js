@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const user = require('../modules/UserSchema');
-const authMiddleWare = require('../middleware/authMiddleWare');
+const user = require('../schema/UserSchema');
+const provjeriToken = require('../middleware/authMiddleWare');
 
 router.get('/', async (req, res) => {
     try{
@@ -13,7 +13,7 @@ return res.status(500).json("Došlo je do greške u aplikaciji.");
 }
     });
 
-    router.get('/me', authMiddleWare, async (req, res) => {
+    router.get('/me', provjeriToken, async (req, res) => {
 try{
 const korisnik = await user.findById(req.user.id).select('-lozinka');
 if(!korisnik){
