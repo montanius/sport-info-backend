@@ -28,11 +28,9 @@ return res.status(500).json({ message : 'Došlo je do greške'});
 
     router.patch('/update', provjeriToken, async (req, res) => {
         const userId = req.user.id;
-const [field, value] = Object.entries(req.body)[0];
+const updateData = req.body;
 
  try{
-const updateData = {[field]: value};
-
 const result = await  user.updateOne({_id: userId}, {$set: updateData});
 
 if(result.modifiedCount === 0){
