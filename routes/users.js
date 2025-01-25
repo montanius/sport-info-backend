@@ -19,8 +19,7 @@ const korisnik = await user.findById(req.user.id).select('-lozinka');
 if(!korisnik){
 return res.status(404).json({ message : 'Korisnik nije pronađen'});
 }
-return res.status(404).json({ message : 'Korisnik nije pronađen'});
-//return res.status(200).json(korisnik);
+return res.status(200).json(korisnik);
 }
 catch(error){
 return res.status(500).json({ message : 'Došlo je do greške'});

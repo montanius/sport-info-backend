@@ -5,7 +5,6 @@ const userSchema = new mongoose.Schema({
     status : {type:String, required:true},
 email : {type:String, required: true, unique:true},
 lozinka: {type:String, required:true},
-logoutTime : { type : Date, default : null}
 }
 );
 
