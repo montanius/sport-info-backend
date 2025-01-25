@@ -15,6 +15,7 @@ app.use(express.json());
 app.use('/api', register);
 app.use('/api', login);
 app.use('/api/users', provjeriToken, usersRoutes);
+app.use('/api/sports', sportsRouters, );
 app.use('/api/sports', provjeriToken, sportsRouters);
 
 const port = process.env.PORT;
