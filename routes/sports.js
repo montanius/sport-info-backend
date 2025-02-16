@@ -25,12 +25,23 @@ router.post('/addsport', provjeriToken,  async (req, res) => {
 router.get('/', async (req, res) => {
     const {name, status, type} = req.query;
     const query = {};
-    if  (name) query.name = {$regex: name, $options: 'i'};
+        if  (name) query.name = {$regex: name, $options: 'i'};
     if (status) query.status = status;
     if (type) query.type = type;
     query.isDeleted = { $ne : true};
 try{
-const sports = await sport.find(query);
+const sports = await sport.find(query).select('_id name');
+return res.status(200).json(sports);
+}
+catch(error){
+return res.status(500).json(error.message);
+}
+});
+
+router.get('/sport', async (req, res) => {
+    const {_id} = req.query;
+            try{
+const sports = await sport.findOne({_id});
 return res.status(200).json(sports);
 }
 catch(error){
