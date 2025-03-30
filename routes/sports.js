@@ -40,8 +40,8 @@ return res.status(500).json(error.message);
 
 router.get('/sport', async (req, res) => {
     const {_id} = req.query;
-            try{
-const sports = await sport.findOne({_id});
+                    try{
+const sports = await sport.findOne({_id, isDeleted : false});
 return res.status(200).json(sports);
 }
 catch(error){
@@ -63,6 +63,26 @@ return res.status(404).json({message: `Sport nije pronađen.`});
 catch(error){
 res.status(500).json({message : `Došlo je do greške  pri ažuriranju podataka.`});
 }
+});
+
+router.delete("/:id", async (req, res) => {
+    try{
+const {id} = req.params;
+const updatedSport = await sport.findByIdAndUpdate(
+    id, 
+    {isDeleted : true},
+    {new : true}
+);
+
+if(!updatedSport){
+return res.status(404).json({message : "Sport nije pronađen"});
+}
+
+res.status(200).json({message : "Sport je uspješno izbrisan."});
+    }
+    catch(error){
+res.status(500).json({message : "Došlo je do greške  pri brisanju sporta", error});
+    }
 });
 
 module.exports = router;
